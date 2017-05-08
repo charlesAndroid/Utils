@@ -21,15 +21,12 @@ public class CheckResource {
         String path = scanner.next();
         System.out.println("File path:" + path);
         File file = new File(path);
-        checkDir(file);
-        try {
-            if (file.exists() && file.isDirectory()) {
-                checkDir(file);
-            } else {
-                System.out.println("File not Found");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!file.exists()) {
+            System.out.println("File not Found");
+        } else if (file.isDirectory()) {
+            checkDir(file);
+        } else {
+            checkFile(file);
         }
         for (String key : count.keySet()) {
             if (count.get(key) > 2) {
@@ -37,7 +34,6 @@ public class CheckResource {
                 System.out.println("layoutId: " + key);
             }
         }
-
     }
 
     private static void checkDir(File f) {
